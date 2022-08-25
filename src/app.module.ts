@@ -3,6 +3,7 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import * as Joi from "Joi";
 import { ConfigModule } from "@nestjs/config";
+import { DatabaseModule } from "./modules/database.module";
 
 @Module({
   imports: [
@@ -16,7 +17,8 @@ import { ConfigModule } from "@nestjs/config";
         DB_PASSWORD: Joi.string().required(),
         DB_NAME: Joi.string().required()
       })
-    })
+    }),
+    DatabaseModule.register()
   ],
   controllers: [AppController],
   providers: [AppService]
