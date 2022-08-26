@@ -1,5 +1,5 @@
 import User from "./user.entity";
-import Id from "./valueObjectEntities/id.entity";
+import Id from "./valueObjects/id.value-object";
 import { Column, Entity, ManyToOne } from "typeorm";
 import IdTransformer from "./transfromers/id.transformer";
 

@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import Email from "../valueObjectEntities/email.entity";
+import Email from "../valueObjects/email.value-object";
 
 class EmailTransformer implements ValueTransformer {
   public from(value: string): Email {

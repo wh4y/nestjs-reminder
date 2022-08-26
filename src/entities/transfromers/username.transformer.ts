@@ -1,5 +1,5 @@
 import { ValueTransformer } from "typeorm";
-import Username from "../valueObjectEntities/username.entity";
+import Username from "../valueObjects/username.value-object";
 
 class UsernameTransformer implements ValueTransformer {
   public from(value: string): Username {

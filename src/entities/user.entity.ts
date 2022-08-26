@@ -1,7 +1,7 @@
-import Id from "./valueObjectEntities/id.entity";
-import Email from "./valueObjectEntities/email.entity";
-import Username from "./valueObjectEntities/username.entity";
-import Password from "./valueObjectEntities/password.entity";
+import Id from "./valueObjects/id.value-object";
+import Email from "./valueObjects/email.value-object";
+import Username from "./valueObjects/username.value-object";
+import Password from "./valueObjects/password.value-object";
 import Contact from "./contact.entity";
 import Event from "./event.entity";
 import { Column, Entity, OneToMany } from "typeorm";
