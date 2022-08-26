@@ -1,10 +1,8 @@
 import User from "./user.entity";
-import Id from "./valueObjects/id.value-object";
 import { Column, Entity, ManyToOne } from "typeorm";
-import IdTransformer from "./transfromers/id.transformer";
+import uuid from "uuid";
 
 export interface CreateContactOptions {
-  id: Id;
   type: string;
   value: string;
   user: User;
@@ -16,10 +14,9 @@ class Contact {
   @Column({
     type: "uuid",
     primary: true,
-    unique: true,
-    transformer: new IdTransformer()
+    unique: true
   })
-  public readonly id: Id;
+  public readonly id: string;
 
   @Column({
     type: "varchar"
@@ -35,7 +32,7 @@ class Contact {
   public readonly user: User;
 
   public static createInstance(options: CreateContactOptions) {
-    const plain = { ...options };
+    const plain = { ...options, id: uuid.v4() };
     Reflect.setPrototypeOf(plain, User.prototype);
 
     return plain as Contact;
