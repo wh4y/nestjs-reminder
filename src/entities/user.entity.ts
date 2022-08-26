@@ -9,6 +9,8 @@ import IdTransformer from "./transfromers/id.transformer";
 import EmailTransformer from "./transfromers/email.transformer";
 import PasswordTransformer from "./transfromers/password.transformer";
 import UsernameTransformer from "./transfromers/username.transformer";
+import JWT from "./valueObjects/jwt.value-object";
+import JwtTransformer from "./transfromers/jwt.transformer";
 
 export interface CreateUserOptions {
   id: Id;
@@ -17,6 +19,13 @@ export interface CreateUserOptions {
   password: Password;
   contacts: Contact[];
   events: Event[];
+  accessToken: JWT | null;
+  refreshToken: JWT | null;
+}
+
+export interface Tokens {
+  accessToken: JWT;
+  refreshToken: JWT;
 }
 
 @Entity("user")
@@ -55,6 +64,20 @@ class User {
   @OneToMany(() => Event, (event) => event.user)
   public readonly events: Event[];
 
+  @Column({
+    type: "varchar",
+    nullable: true,
+    transformer: new JwtTransformer()
+  })
+  public readonly accessToken: JWT;
+
+  @Column({
+    type: "varchar",
+    nullable: true,
+    transformer: new JwtTransformer()
+  })
+  public readonly refreshToken: JWT;
+
   public static createInstance(options: CreateUserOptions) {
     const plain = { ...options };
     Reflect.setPrototypeOf(plain, User.prototype);
@@ -76,6 +99,14 @@ class User {
 
   public withEvents(value: Event[]) {
     return User.createInstance({ ...this, events: value }) as User;
+  }
+
+  public withTokens(tokens: Tokens) {
+    return User.createInstance({
+      ...this,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken
+    });
   }
 }
 
