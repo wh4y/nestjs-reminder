@@ -19,8 +19,7 @@ export class DatabaseModule {
               username: configService.get<string>("DB_USER"),
               password: configService.get<string>("DB_PASSWORD"),
               database: configService.get<string>("DB_NAME"),
-              entities: ["./../entities/.entity{.ts,.js}"],
-              migrations: ["./../typeorm/migrations/*{.ts,.js}"],
+              entities: [__dirname + "/../entities/*.entity{.ts,.js}"],
               synchronize: true,
               logging: true
             } as TypeOrmModuleAsyncOptions;
