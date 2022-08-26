@@ -1,6 +1,5 @@
 import { DynamicModule, Module } from "@nestjs/common";
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from "@nestjs/typeorm";
-import { EntitySchema, MixedList } from "typeorm";
 import { ConfigService } from "@nestjs/config";
 
 
