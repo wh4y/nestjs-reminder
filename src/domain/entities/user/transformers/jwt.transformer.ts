@@ -1,5 +1,4 @@
 import { ValueTransformer } from "typeorm";
-import Id from "../valueObjects/id.value-object";
 import JWT from "../valueObjects/jwt.value-object";
 
 class JwtTransformer implements ValueTransformer {

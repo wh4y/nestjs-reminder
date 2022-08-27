@@ -16,9 +16,9 @@ export const AppDataSource = new DataSource({
   database: configService.get<string>("DB_NAME"),
   synchronize: true,
   logging: true,
-  entities: ["./dist/entities/*.entity{.ts,.js}"],
-  migrations: ["./dist/typeorm/migrations/*{.ts,.js}"],
+  entities: ["./dist/domain/entities/*.entity{.ts,.js}"],
+  migrations: ["./dist/infrastructure/typeorm/migrations/*{.ts,.js}"],
   cli: {
-    migrationsDir: "./dist/typeorm/migrations"
+    migrationsDir: "./dist/infrastructure/typeorm/migrations"
   }
 } as DataSourceOptions);

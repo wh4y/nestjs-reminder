@@ -1,14 +1,14 @@
 import Email from "./valueObjects/email.value-object";
 import Username from "./valueObjects/username.value-object";
 import Password from "./valueObjects/password.value-object";
-import Contact from "./contact.entity";
-import Event from "./event.entity";
+import Contact from "../contact/contact.entity";
+import Event from "../event/event.entity";
 import { Column, Entity, OneToMany } from "typeorm";
-import EmailTransformer from "./transfromers/email.transformer";
-import PasswordTransformer from "./transfromers/password.transformer";
-import UsernameTransformer from "./transfromers/username.transformer";
+import EmailTransformer from "./transformers/email.transformer";
+import PasswordTransformer from "./transformers/password.transformer";
+import UsernameTransformer from "./transformers/username.transformer";
 import JWT from "./valueObjects/jwt.value-object";
-import JwtTransformer from "./transfromers/jwt.transformer";
+import JwtTransformer from "./transformers/jwt.transformer";
 import uuid from "uuid";
 
 export interface CreateUserOptions {
