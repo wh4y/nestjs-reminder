@@ -14,7 +14,8 @@ class Contact {
   @Column({
     type: "uuid",
     primary: true,
-    unique: true
+    unique: true,
+    generated: "uuid"
   })
   public readonly id: string;
 
@@ -32,7 +33,7 @@ class Contact {
   public readonly user: User;
 
   public static createInstance(options: CreateContactOptions) {
-    const plain = { ...options, id: uuid.v4() };
+    const plain = { ...options };
     Reflect.setPrototypeOf(plain, User.prototype);
 
     return plain as Contact;

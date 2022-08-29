@@ -16,6 +16,7 @@ class Event {
     type: "uuid",
     primary: true,
     unique: true,
+    generated: "uuid"
   })
   public readonly id: string;
 
@@ -38,7 +39,7 @@ class Event {
   public readonly user: User;
 
   public static createInstance(options: CreateEventOptions) {
-    const plain = { ...options, id: uuid.v4() };
+    const plain = { ...options };
     Reflect.setPrototypeOf(plain, User.prototype);
 
     return plain as Event;

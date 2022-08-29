@@ -1,20 +1,17 @@
 import Email from "./valueObjects/email.value-object";
 import Username from "./valueObjects/username.value-object";
-import Password from "./valueObjects/password.value-object";
 import Contact from "../contact/contact.entity";
 import Event from "../event/event.entity";
 import { Column, Entity, OneToMany } from "typeorm";
 import EmailTransformer from "./transformers/email.transformer";
-import PasswordTransformer from "./transformers/password.transformer";
 import UsernameTransformer from "./transformers/username.transformer";
 import JWT from "./valueObjects/jwt.value-object";
 import JwtTransformer from "./transformers/jwt.transformer";
-import uuid from "uuid";
 
 export interface CreateUserOptions {
   email: Email;
   username: Username;
-  password: Password;
+  password: string;
   contacts: Contact[];
   events: Event[];
   accessToken: JWT | null;
@@ -32,7 +29,8 @@ class User {
   @Column({
     type: "uuid",
     primary: true,
-    unique: true
+    unique: true,
+    generated: "uuid"
   })
   public readonly id: string;
 
@@ -50,10 +48,9 @@ class User {
   public readonly username: Username;
 
   @Column({
-    type: "varchar",
-    transformer: new PasswordTransformer()
+    type: "varchar"
   })
-  public readonly password: Password;
+  public readonly password: string;
 
   @OneToMany(() => Contact, (contact) => contact.user)
   public readonly contacts: Contact[];
@@ -76,7 +73,7 @@ class User {
   public readonly refreshToken: JWT;
 
   public static createInstance(options: CreateUserOptions) {
-    const plain = { ...options, id: uuid.v4() };
+    const plain = { ...options };
     Reflect.setPrototypeOf(plain, User.prototype);
 
     return plain as User;
