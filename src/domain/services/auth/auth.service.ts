@@ -1,13 +1,13 @@
 import { IAuthService } from "./auth-service.interface";
-import User, { CreateUserOptions } from "../entities/user/user.entity";
-import JWT from "../entities/user/valueObjects/jwt.value-object";
-import { LoginDto } from "../../application/dto/login.dto";
-import { CreateUserDto } from "../../application/dto/create-user.dto";
-import { UsersService } from "./users.service";
+import User, { CreateUserOptions } from "../../entities/user/user.entity";
+import JWT from "../../entities/user/valueObjects/jwt.value-object";
+import { LoginDto } from "../../../application/dto/login.dto";
+import { CreateUserDto } from "../../../application/dto/create-user.dto";
+import { UsersService } from "../users/users.service";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
-import Email from "../entities/user/valueObjects/email.value-object";
-import Username from "../entities/user/valueObjects/username.value-object";
+import Email from "../../entities/user/valueObjects/email.value-object";
+import Username from "../../entities/user/valueObjects/username.value-object";
 import { Injectable } from "@nestjs/common";
 import { compare, hash } from "bcrypt";
 

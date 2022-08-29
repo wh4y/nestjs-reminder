@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { IUsersService } from "./users-service.interface";
-import User, { CreateUserOptions } from "../entities/user/user.entity";
-import Email from "../entities/user/valueObjects/email.value-object";
+import User, { CreateUserOptions } from "../../entities/user/user.entity";
+import Email from "../../entities/user/valueObjects/email.value-object";
 import { InjectRepository } from "@nestjs/typeorm";
-import { UsersRepository } from "../../infrastructure/repositories/users.repository";
+import { UsersRepository } from "../../../infrastructure/repositories/users.repository";
 
 
 @Injectable()

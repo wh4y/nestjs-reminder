@@ -1,6 +1,6 @@
-import User, { CreateUserOptions } from "../entities/user/user.entity";
-import Email from "../entities/user/valueObjects/email.value-object";
-import { CreateUserDto } from "../../application/dto/create-user.dto";
+import User, { CreateUserOptions } from "../../entities/user/user.entity";
+import Email from "../../entities/user/valueObjects/email.value-object";
+import { CreateUserDto } from "../../../application/dto/create-user.dto";
 
 export interface IUsersService {
   getAllUsers(): Promise<User[]>;
