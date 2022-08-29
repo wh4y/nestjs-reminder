@@ -7,6 +7,7 @@ import EmailTransformer from "./transformers/email.transformer";
 import UsernameTransformer from "./transformers/username.transformer";
 import JWT from "./valueObjects/jwt.value-object";
 import JwtTransformer from "./transformers/jwt.transformer";
+import { Exclude, Transform } from "class-transformer";
 
 export interface CreateUserOptions {
   email: Email;
@@ -39,17 +40,20 @@ class User {
     unique: true,
     transformer: new EmailTransformer()
   })
+  @Transform(({ value }) => value.value)
   public readonly email: Email;
 
   @Column({
     type: "varchar",
     transformer: new UsernameTransformer()
   })
+  @Transform(({ value }) => value.value)
   public readonly username: Username;
 
   @Column({
     type: "varchar"
   })
+  @Exclude()
   public readonly password: string;
 
   @OneToMany(() => Contact, (contact) => contact.user)
@@ -63,6 +67,7 @@ class User {
     nullable: true,
     transformer: new JwtTransformer()
   })
+  @Transform(({ value }) => value.value)
   public readonly accessToken: JWT;
 
   @Column({
@@ -70,6 +75,7 @@ class User {
     nullable: true,
     transformer: new JwtTransformer()
   })
+  @Transform(({ value }) => value.value)
   public readonly refreshToken: JWT;
 
   public static createInstance(options: CreateUserOptions) {
