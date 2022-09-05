@@ -1,14 +1,54 @@
 version: '3.8'
 
 services:
-  app:
-    container_name: app
+  app_1:
+    container_name: app_1
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     env_file: .env
+    environment:
+      - APP_PORT=3001
     ports:
-      - ${APP_PORT}:${APP_PORT}
+      - '3001:3001'
+    depends_on:
+      - db
+    links:
+      - db:db
+    restart: always
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: yarn start:dev
+  app_2:
+    container_name: app_2
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file: .env
+    environment:
+      - APP_PORT=3002
+    ports:
+      - '3002:3002'
+    depends_on:
+      - db
+    links:
+      - db:db
+    restart: always
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: yarn start:dev
+  app_3:
+    container_name: app_3
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    env_file: .env
+    environment:
+      - APP_PORT=3003
+    ports:
+      - '3003:3003'
     depends_on:
       - db
     links:
@@ -32,6 +72,19 @@ services:
       - ${DB_PORT}:${DB_PORT}
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+  nginx:
+    build:
+      context: ./nginx
+    container_name: nginx
+    image: nginx
+    restart: always
+    ports:
+      - '8080:8080'
+    depends_on:
+      - app_1
+      - app_2
+      - app_3
 volumes:
   pgdata:
   db:
